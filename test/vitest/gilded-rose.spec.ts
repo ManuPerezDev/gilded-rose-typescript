@@ -80,5 +80,14 @@ describe('Gilded Rose', () => {
       expect(items[0].sellIn).toBe(5)
       expect(items[0].quality).toBe(3)
     })
+
+    it('lose all quality when it reaches concert day', () => {
+      const gildedRose = new GildedRose([new Item('Backstage passes to a TAFKAL80ETC concert', 0, 10)])
+
+      const items = gildedRose.updateQuality()
+      console.log(items)
+      expect(items[0].sellIn).toBe(-1)
+      expect(items[0].quality).toBe(0)
+    })
   })
 })
