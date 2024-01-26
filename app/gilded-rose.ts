@@ -27,7 +27,6 @@ export class GildedRose {
       const quality = this.items[i].quality
       const sellIn = this.items[i].sellIn
 
-
       if (name === sulfuras) {
         continue
       }
@@ -35,16 +34,11 @@ export class GildedRose {
       if (name === backstagePasses) {
         if (quality < 50) {
           this.items[i].quality = quality + 1
-          if (sellIn < 11) {
-            if (quality < 50) {
-              this.items[i].quality = this.items[i].quality + 1
-            }
+          if (sellIn < 11 && quality < 50) {
+            this.items[i].quality = this.items[i].quality + 1
           }
-          if (sellIn < 6) {
-            if (quality < 50) {
-              this.items[i].quality = this.items[i].quality + 1
-            }
-
+          if (sellIn < 6 && quality < 50) {
+            this.items[i].quality = this.items[i].quality + 1
           }
         }
         this.items[i].sellIn = sellIn - 1;
@@ -58,17 +52,12 @@ export class GildedRose {
 
 
       if (name === agedBrie) {
-        if (quality < 50) {
+        if (quality < 50 && sellIn > 0) {
           this.items[i].quality = quality + 1
+        } else if (quality < 50 && sellIn < 0) {
+          this.items[i].quality = quality + 2
         }
-
         this.items[i].sellIn = sellIn - 1;
-
-        if (sellIn < 0) {
-          if (this.items[i].quality < 50) {
-            this.items[i].quality = quality + 1
-          }
-        }
         continue
       }
 
@@ -76,11 +65,9 @@ export class GildedRose {
         if (quality > 0) {
           this.items[i].quality = quality - 1
         }
-      }
-      this.items[i].sellIn = sellIn - 1;
+        this.items[i].sellIn = sellIn - 1;
 
-      if (sellIn < 0) {
-        if (this.items[i].quality > 0) {
+        if (sellIn < 0 && this.items[i].quality > 0) {
           this.items[i].quality = this.items[i].quality - 1
         }
       }
