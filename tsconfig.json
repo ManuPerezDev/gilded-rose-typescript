@@ -8,6 +8,9 @@
     "baseUrl": "./",
     "resolveJsonModule": true,
     "esModuleInterop": true,
+    "types": [
+      "vitest/globals",
+    ],
     "paths": {
       "@/*": [
         "app/*"
