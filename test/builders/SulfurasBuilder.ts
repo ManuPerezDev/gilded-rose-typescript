@@ -1,6 +1,6 @@
-import { AgedBrie } from '@/AgedBrie'
+import { Sulfuras } from '@/Sulfuras'
 
-export class AgedBrieBuilder {
+export class SulfurasBuilder {
   private sellIn: number
   private quality: number
 
@@ -20,6 +20,6 @@ export class AgedBrieBuilder {
   }
 
   build () {
-    return new AgedBrie(this.sellIn, this.quality)
+    return new Sulfuras(this.sellIn)
   }
 }

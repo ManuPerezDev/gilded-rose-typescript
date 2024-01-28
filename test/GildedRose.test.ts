@@ -5,6 +5,7 @@ import { BackstagePasses } from '@/BackstagePasses'
 import { expect } from 'vitest'
 import { RegularItemBuilder } from './builders/RegularItemBuilder'
 import { AgedBrieBuilder } from './builders/AgedBrieBuilder'
+import { SulfurasBuilder } from './builders/SulfurasBuilder'
 
 describe('Gilded Rose', () => {
   describe('Default', () => {
@@ -66,12 +67,11 @@ describe('Gilded Rose', () => {
 
   describe('Sulfuras', () => {
     it('should not decrease quality', () => {
-      const gildedRose = new GildedRose([new Sulfuras(1)])
+      const gildedRose = new GildedRose([new SulfurasBuilder().withSellIn(1).build()])
 
       const items = gildedRose.updateQuality()
 
-      expect(items[0].sellIn).toBe(1)
-      expect(items[0].quality).toBe(80)
+      expect(items[0]).toStrictEqual(new SulfurasBuilder().withSellIn(1).build())
     })
   })
 
