@@ -1,6 +1,5 @@
 import { GildedRose } from '@/GildedRose'
 import { AgedBrie } from '@/AgedBrie'
-import { Sulfuras } from '@/Sulfuras'
 import { expect } from 'vitest'
 import { RegularItemBuilder } from './builders/RegularItemBuilder'
 import { AgedBrieBuilder } from './builders/AgedBrieBuilder'
