@@ -4,6 +4,7 @@ import { Sulfuras } from '@/Sulfuras'
 import { BackstagePasses } from '@/BackstagePasses'
 import { expect } from 'vitest'
 import { RegularItemBuilder } from './builders/RegularItemBuilder'
+import { AgedBrieBuilder } from './builders/AgedBrieBuilder'
 
 describe('Gilded Rose', () => {
   describe('Default', () => {
@@ -43,21 +44,23 @@ describe('Gilded Rose', () => {
 
   describe('Aged Brie', () => {
     it('should increase quality', () => {
-      const gildedRose = new GildedRose([new AgedBrie(1, 1)])
+      const items = [new AgedBrie(1, 1)]
+      const gildedRose = new GildedRose(items)
 
-      const items = gildedRose.updateQuality()
+      const updatedItems = gildedRose.updateQuality()
 
-      expect(items[0].sellIn).toBe(0)
-      expect(items[0].quality).toBe(2)
+      const expectedItem = new AgedBrieBuilder().withQuality(2).withSellIn(0).build()
+      expect(updatedItems[0]).toStrictEqual(expectedItem)
     })
 
     it('should not increase beyond 50 quality', () => {
-      const gildedRose = new GildedRose([new AgedBrie(1, 50)])
+      const items = [new AgedBrie(1, 50)]
+      const gildedRose = new GildedRose(items)
 
-      const items = gildedRose.updateQuality()
+      const updatedItems = gildedRose.updateQuality()
 
-      expect(items[0].sellIn).toBe(0)
-      expect(items[0].quality).toBe(50)
+      const expectedItem = new AgedBrieBuilder().withQuality(50).withSellIn(0).build()
+      expect(updatedItems[0]).toStrictEqual(expectedItem)
     })
   })
 
