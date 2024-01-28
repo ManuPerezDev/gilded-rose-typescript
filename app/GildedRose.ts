@@ -1,17 +1,14 @@
 import { Item } from '@/Item'
 
 export class GildedRose {
-  items: Array<Item>
-
-  constructor (items = [] as Array<Item>) {
-    this.items = items
+  constructor (private items: Array<Item>) {
   }
 
   updateQuality () {
     const updatedItems: Item[] = []
 
-    for (let i = 0; i < this.items.length; i++) {
-      const updatedItem = this.items[i].updateQuality()
+    for (const item of this.items) {
+      const updatedItem = item.updateQuality()
       updatedItems.push(updatedItem)
     }
 

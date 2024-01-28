@@ -1,36 +1,43 @@
 import { GildedRose } from '@/GildedRose'
-import { RegularItem } from '@/RegularItem'
 import { AgedBrie } from '@/AgedBrie'
 import { Sulfuras } from '@/Sulfuras'
 import { BackstagePasses } from '@/BackstagePasses'
+import { expect } from 'vitest'
+import { RegularItemBuilder } from './builders/RegularItemBuilder'
 
 describe('Gilded Rose', () => {
   describe('Default', () => {
     it('should degrade sell in and quality', () => {
-      const gildedRose = new GildedRose([new RegularItem('Regular', 1, 1)])
+      const name = 'Regular'
+      const items = [new RegularItemBuilder().withName(name).withQuality(1).withSellIn(1).build()]
+      const gildedRose = new GildedRose(items)
 
-      const items = gildedRose.updateQuality()
+      const updatedItems = gildedRose.updateQuality()
 
-      expect(items[0].sellIn).toBe(0)
-      expect(items[0].quality).toBe(0)
+      const expectedItem = new RegularItemBuilder().withName(name).withQuality(0).withSellIn(0).build()
+      expect(updatedItems[0]).toStrictEqual(expectedItem)
     })
 
     it('should degrade twice as fast if sell in is negative', () => {
-      const gildedRose = new GildedRose([new RegularItem('Regular', -1, 2)])
+      const name = 'Regular'
+      const items = [new RegularItemBuilder().withName(name).withQuality(2).withSellIn(-1).build()]
+      const gildedRose = new GildedRose(items)
 
-      const items = gildedRose.updateQuality()
+      const updatedItems = gildedRose.updateQuality()
 
-      expect(items[0].sellIn).toBe(-2)
-      expect(items[0].quality).toBe(0)
+      const expectedItem = new RegularItemBuilder().withName(name).withQuality(0).withSellIn(-2).build()
+      expect(updatedItems[0]).toStrictEqual(expectedItem)
     })
 
     it('should not degrade quality below 0', () => {
-      const gildedRose = new GildedRose([new RegularItem('Regular', -1, 1)])
+      const name = 'Regular'
+      const items = [new RegularItemBuilder().withName(name).withQuality(1).withSellIn(-1).build()]
+      const gildedRose = new GildedRose(items)
 
-      const items = gildedRose.updateQuality()
+      const updatedItems = gildedRose.updateQuality()
 
-      expect(items[0].sellIn).toBe(-2)
-      expect(items[0].quality).toBe(0)
+      const expectedItem = new RegularItemBuilder().withName(name).withQuality(0).withSellIn(-2).build()
+      expect(updatedItems[0]).toStrictEqual(expectedItem)
     })
   })
 
