@@ -1,11 +1,11 @@
 import { GildedRose } from '@/GildedRose'
 import { AgedBrie } from '@/AgedBrie'
 import { Sulfuras } from '@/Sulfuras'
-import { BackstagePasses } from '@/BackstagePasses'
 import { expect } from 'vitest'
 import { RegularItemBuilder } from './builders/RegularItemBuilder'
 import { AgedBrieBuilder } from './builders/AgedBrieBuilder'
 import { SulfurasBuilder } from './builders/SulfurasBuilder'
+import { BackstagePassesBuilder } from './builders/BackstagePassesBuilder'
 
 describe('Gilded Rose', () => {
   describe('Default', () => {
@@ -77,30 +77,33 @@ describe('Gilded Rose', () => {
 
   describe('Backstage passes to a TAFKAL80ETC concert', () => {
     it('increase quality by 3 when is below 5 days to sell in', () => {
-      const gildedRose = new GildedRose([new BackstagePasses(1, 1)])
+      const items = [new BackstagePassesBuilder().withSellIn(1).withQuality(1).build()]
+      const gildedRose = new GildedRose(items)
 
-      const items = gildedRose.updateQuality()
+      const updatedItems = gildedRose.updateQuality()
 
-      expect(items[0].sellIn).toBe(0)
-      expect(items[0].quality).toBe(4)
+      const expectedItem = new BackstagePassesBuilder().withSellIn(0).withQuality(4).build()
+      expect(updatedItems[0]).toStrictEqual(expectedItem)
     })
 
     it('increase quality by 2 when is between 5 and 10 days to sell int', () => {
-      const gildedRose = new GildedRose([new BackstagePasses(6, 1)])
+      const items = [new BackstagePassesBuilder().withSellIn(6).withQuality(1).build()]
+      const gildedRose = new GildedRose(items)
 
-      const items = gildedRose.updateQuality()
+      const updatedItems = gildedRose.updateQuality()
 
-      expect(items[0].sellIn).toBe(5)
-      expect(items[0].quality).toBe(3)
+      const expectedItem = new BackstagePassesBuilder().withSellIn(5).withQuality(3).build()
+      expect(updatedItems[0]).toStrictEqual(expectedItem)
     })
 
     it('lose all quality when it reaches concert day', () => {
-      const gildedRose = new GildedRose([new BackstagePasses(0, 10)])
+      const items = [new BackstagePassesBuilder().withSellIn(0).withQuality(10).build()]
+      const gildedRose = new GildedRose(items)
 
-      const items = gildedRose.updateQuality()
+      const updatedItems = gildedRose.updateQuality()
 
-      expect(items[0].sellIn).toBe(-1)
-      expect(items[0].quality).toBe(0)
+      const expectedItem = new BackstagePassesBuilder().withSellIn(-1).withQuality(0).build()
+      expect(updatedItems[0]).toStrictEqual(expectedItem)
     })
   })
 })
