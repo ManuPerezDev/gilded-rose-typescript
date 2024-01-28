@@ -1,4 +1,4 @@
-import { GildedRose, Item } from '@/gilded-rose'
+import { GildedRose, Item } from '@/GildedRose'
 import { describe } from 'vitest'
 
 describe('Gilded Rose', () => {
