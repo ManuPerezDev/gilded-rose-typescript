@@ -8,36 +8,13 @@ export class GildedRose {
   }
 
   updateQuality () {
-    const sulfuras = 'Sulfuras, Hand of Ragnaros'
-    const agedBrie = 'Aged Brie'
-    const backstagePasses = 'Backstage passes to a TAFKAL80ETC concert'
-
-    const items: Item[] = []
+    const updatedItems: Item[] = []
 
     for (let i = 0; i < this.items.length; i++) {
-      const name = this.items[i].name
-
-      if (name === sulfuras) {
-        const updatedSulfuras = this.items[i].updateQuality()
-        items.push(updatedSulfuras)
-      }
-
-      if (name === backstagePasses) {
-        const updatedBackstagePasses = this.items[i].updateQuality()
-        items.push(updatedBackstagePasses)
-      }
-
-      if (name === agedBrie) {
-        const updatedAgedBrie = this.items[i].updateQuality()
-        items.push(updatedAgedBrie)
-      }
-
-      if (name !== agedBrie && name !== backstagePasses) {
-        const regularItemUpdated = this.items[i].updateQuality()
-        items.push(regularItemUpdated)
-      }
+      const updatedItem = this.items[i].updateQuality()
+      updatedItems.push(updatedItem)
     }
 
-    return [...items, ...this.items]
+    return updatedItems
   }
 }
