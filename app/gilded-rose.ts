@@ -35,6 +35,20 @@ class RegularItem implements Item2 {
   }
 }
 
+class Sulfuras implements Item2 {
+  name: string
+  quality: number
+
+  constructor (public sellIn: number) {
+    this.name = 'Sulfuras, Hand of Ragnaros'
+    this.quality = 80
+  }
+
+  updateQuality (): Item {
+    return this
+  }
+}
+
 export class GildedRose {
   items: Array<Item>
 
@@ -53,6 +67,8 @@ export class GildedRose {
       const sellIn = this.items[i].sellIn
 
       if (name === sulfuras) {
+        const updatedSulfuras = new Sulfuras(sellIn)
+        this.items = [updatedSulfuras]
         continue
       }
 
