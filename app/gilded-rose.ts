@@ -1,26 +1,51 @@
 export class Item {
-  name: string;
-  sellIn: number;
-  quality: number;
+  name: string
+  sellIn: number
+  quality: number
 
-  constructor(name, sellIn, quality) {
-    this.name = name;
-    this.sellIn = sellIn;
-    this.quality = quality;
+  constructor (name, sellIn, quality) {
+    this.name = name
+    this.sellIn = sellIn
+    this.quality = quality
+  }
+}
+
+interface Item2 {
+  name: string
+  sellIn: number
+  quality: number
+
+  updateQuality(): Item
+}
+
+class RegularItem implements Item2 {
+  constructor (public name: string, public sellIn: number, public quality: number) {
+  }
+
+  updateQuality (): Item {
+    if (this.quality > 0) {
+      this.quality = this.quality - 1
+    }
+    this.sellIn = this.sellIn - 1
+
+    if (this.sellIn < 0 && this.quality > 0) {
+      this.quality = this.quality - 1
+    }
+    return this
   }
 }
 
 export class GildedRose {
-  items: Array<Item>;
+  items: Array<Item>
 
-  constructor(items = [] as Array<Item>) {
-    this.items = items;
+  constructor (items = [] as Array<Item>) {
+    this.items = items
   }
 
-  updateQuality() {
-    const sulfuras = 'Sulfuras, Hand of Ragnaros';
-    const agedBrie = 'Aged Brie';
-    const backstagePasses = 'Backstage passes to a TAFKAL80ETC concert';
+  updateQuality () {
+    const sulfuras = 'Sulfuras, Hand of Ragnaros'
+    const agedBrie = 'Aged Brie'
+    const backstagePasses = 'Backstage passes to a TAFKAL80ETC concert'
 
     for (let i = 0; i < this.items.length; i++) {
       const name = this.items[i].name
@@ -32,7 +57,7 @@ export class GildedRose {
       }
 
       if (name === backstagePasses) {
-        this.items[i].sellIn = sellIn - 1;
+        this.items[i].sellIn = sellIn - 1
 
         if (this.items[i].sellIn < 0) {
           this.items[i].quality = quality - quality
@@ -52,29 +77,22 @@ export class GildedRose {
         continue
       }
 
-
       if (name === agedBrie) {
         if (quality < 50 && sellIn > 0) {
           this.items[i].quality = quality + 1
         } else if (quality < 50 && sellIn < 0) {
           this.items[i].quality = quality + 2
         }
-        this.items[i].sellIn = sellIn - 1;
+        this.items[i].sellIn = sellIn - 1
         continue
       }
 
-      if (name != agedBrie && name != backstagePasses) {
-        if (quality > 0) {
-          this.items[i].quality = quality - 1
-        }
-        this.items[i].sellIn = sellIn - 1;
-
-        if (sellIn < 0 && this.items[i].quality > 0) {
-          this.items[i].quality = this.items[i].quality - 1
-        }
+      if (name !== agedBrie && name !== backstagePasses) {
+        const regularItemUpdated = new RegularItem(name, sellIn, quality).updateQuality()
+        this.items = [regularItemUpdated]
       }
     }
 
-    return this.items;
+    return this.items
   }
 }
