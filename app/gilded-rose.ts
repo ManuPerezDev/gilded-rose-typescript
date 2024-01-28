@@ -32,19 +32,21 @@ export class GildedRose {
       }
 
       if (name === backstagePasses) {
-        if (quality < 50) {
-          this.items[i].quality = quality + 1
-          if (sellIn < 11 && quality < 50) {
-            this.items[i].quality = this.items[i].quality + 1
-          }
-          if (sellIn < 6 && quality < 50) {
-            this.items[i].quality = this.items[i].quality + 1
-          }
-        }
         this.items[i].sellIn = sellIn - 1;
 
         if (this.items[i].sellIn < 0) {
           this.items[i].quality = quality - quality
+          continue
+        }
+
+        if (quality < 50 && sellIn < 6) {
+          this.items[i].quality = this.items[i].quality + 3
+          continue
+        }
+
+        if (quality < 50 && sellIn < 11) {
+          this.items[i].quality = this.items[i].quality + 2
+          continue
         }
 
         continue
