@@ -1,7 +1,6 @@
-import { Item2 } from '@/Item2'
-import { Item } from '@/GildedRose'
+import { Item } from '@/Item'
 
-export class RegularItem implements Item2 {
+export class RegularItem implements Item {
   constructor (public name: string, public sellIn: number, public quality: number) {
   }
 

@@ -1,7 +1,6 @@
-import { Item2 } from '@/Item2'
-import { Item } from '@/GildedRose'
+import { Item } from '@/Item'
 
-export class BackstagePasses implements Item2 {
+export class BackstagePasses implements Item {
   name: string
 
   constructor (public sellIn: number, public quality: number) {

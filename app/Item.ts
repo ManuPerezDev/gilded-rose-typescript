@@ -1,6 +1,4 @@
-import { Item } from '@/GildedRose'
-
-export interface Item2 {
+export interface Item {
   name: string
   sellIn: number
   quality: number

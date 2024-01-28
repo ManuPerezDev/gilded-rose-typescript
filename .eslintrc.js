@@ -10,6 +10,7 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint'],
   rules: {
-    'no-useless-constructor': 'off'
+    'no-useless-constructor': 'off',
+    'no-undef': 'off'
   }
 }

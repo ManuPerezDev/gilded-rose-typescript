@@ -1,10 +1,13 @@
-import { GildedRose, Item } from '@/GildedRose'
-import { describe } from 'vitest'
+import { GildedRose } from '@/GildedRose'
+import { RegularItem } from '@/RegularItem'
+import { AgedBrie } from '@/AgedBrie'
+import { Sulfuras } from '@/Sulfuras'
+import { BackstagePasses } from '@/BackstagePasses'
 
 describe('Gilded Rose', () => {
   describe('Default', () => {
     it('should degrade sell in and quality', () => {
-      const gildedRose = new GildedRose([new Item('Default', 1, 1)])
+      const gildedRose = new GildedRose([new RegularItem('Regular', 1, 1)])
 
       const items = gildedRose.updateQuality()
 
@@ -13,7 +16,7 @@ describe('Gilded Rose', () => {
     })
 
     it('should degrade twice as fast if sell in is negative', () => {
-      const gildedRose = new GildedRose([new Item('Default', -1, 2)])
+      const gildedRose = new GildedRose([new RegularItem('Regular', -1, 2)])
 
       const items = gildedRose.updateQuality()
 
@@ -22,7 +25,7 @@ describe('Gilded Rose', () => {
     })
 
     it('should not degrade quality below 0', () => {
-      const gildedRose = new GildedRose([new Item('Default', -1, 1)])
+      const gildedRose = new GildedRose([new RegularItem('Regular', -1, 1)])
 
       const items = gildedRose.updateQuality()
 
@@ -33,7 +36,7 @@ describe('Gilded Rose', () => {
 
   describe('Aged Brie', () => {
     it('should increase quality', () => {
-      const gildedRose = new GildedRose([new Item('Aged Brie', 1, 1)])
+      const gildedRose = new GildedRose([new AgedBrie(1, 1)])
 
       const items = gildedRose.updateQuality()
 
@@ -42,7 +45,7 @@ describe('Gilded Rose', () => {
     })
 
     it('should not increase beyond 50 quality', () => {
-      const gildedRose = new GildedRose([new Item('Aged Brie', 1, 50)])
+      const gildedRose = new GildedRose([new AgedBrie(1, 50)])
 
       const items = gildedRose.updateQuality()
 
@@ -53,7 +56,7 @@ describe('Gilded Rose', () => {
 
   describe('Sulfuras', () => {
     it('should not decrease quality', () => {
-      const gildedRose = new GildedRose([new Item('Sulfuras, Hand of Ragnaros', 1, 80)])
+      const gildedRose = new GildedRose([new Sulfuras(1)])
 
       const items = gildedRose.updateQuality()
 
@@ -64,7 +67,7 @@ describe('Gilded Rose', () => {
 
   describe('Backstage passes to a TAFKAL80ETC concert', () => {
     it('increase quality by 3 when is below 5 days to sell in', () => {
-      const gildedRose = new GildedRose([new Item('Backstage passes to a TAFKAL80ETC concert', 1, 1)])
+      const gildedRose = new GildedRose([new BackstagePasses(1, 1)])
 
       const items = gildedRose.updateQuality()
 
@@ -73,7 +76,7 @@ describe('Gilded Rose', () => {
     })
 
     it('increase quality by 2 when is between 5 and 10 days to sell int', () => {
-      const gildedRose = new GildedRose([new Item('Backstage passes to a TAFKAL80ETC concert', 6, 1)])
+      const gildedRose = new GildedRose([new BackstagePasses(6, 1)])
 
       const items = gildedRose.updateQuality()
 
@@ -82,7 +85,7 @@ describe('Gilded Rose', () => {
     })
 
     it('lose all quality when it reaches concert day', () => {
-      const gildedRose = new GildedRose([new Item('Backstage passes to a TAFKAL80ETC concert', 0, 10)])
+      const gildedRose = new GildedRose([new BackstagePasses(0, 10)])
 
       const items = gildedRose.updateQuality()
 

@@ -1,7 +1,6 @@
-import { Item2 } from '@/Item2'
-import { Item } from '@/GildedRose'
+import { Item } from '@/Item'
 
-export class Sulfuras implements Item2 {
+export class Sulfuras implements Item {
   name: string
   quality: number
 
